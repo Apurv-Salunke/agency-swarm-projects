@@ -4,6 +4,7 @@ from ContentWriter import ContentWriter
 from ClientRelationsManager import ClientRelationsManager
 from ContentStrategist import ContentStrategist
 
+
 ceo = ContentStrategist()
 writer = ContentWriter()
 editor = ContentEditor()
