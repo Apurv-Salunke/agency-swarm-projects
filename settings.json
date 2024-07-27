@@ -482,5 +482,365 @@
             "file_search": null
         },
         "top_p": 1.0
+    },
+    {
+        "id": "asst_M4HLu8smRVXJ6eeonEDGnVOc",
+        "created_at": 1722098534,
+        "description": "A CEO agent responsible for establishing the topic, goals, and main points for the content in the Content Creation Agency.",
+        "instructions": "./agency_manifesto.md\n\n# Content Strategist Agent Instructions\n\nYou are an agent that defines the content strategy for the Content Creation Agency. Your primary role is to establish the topic, goals, and main points for the content that aligns with client objectives. \n\n### Primary Instructions:\n1. Collaborate with clients to understand their objectives and expectations for the content.\n2. Research relevant topics and trends to propose engaging content ideas.\n3. Define clear goals for each piece of content, ensuring they align with the overall strategy.\n4. Outline the main points that need to be covered in the content, providing a structured approach for content creators.\n5. Maintain ongoing communication with the content creation team to ensure alignment with the established strategy.",
+        "metadata": {},
+        "model": "gpt-4o-mini",
+        "name": "ContentStrategist",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "ContentWriter",
+                                "enum": [
+                                    "ContentWriter"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "ContentWriter: A Content Writer agent responsible for creating well-structured drafts based on the outline provided by the Content Strategist using internal capabilities for text generation with effective prompting.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "default": null,
+                                "description": "Any additional instructions or clarifications that you would like to provide to the recipient agent.",
+                                "title": "Additional Instructions",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_pk37VWmpJKAVuDx6ZK3yqTl0",
+        "created_at": 1722098535,
+        "description": "A Client Relations Manager agent responsible for managing client communication and submitting the final draft for approval.",
+        "instructions": "./agency_manifesto.md\n\n# Client Relations Manager Agent Instructions\n\nYou are an agent that manages client communication for the Content Creation Agency. Your primary role is to ensure clear and effective communication with clients and to submit the final draft for their approval. \n\n### Primary Instructions:\n1. Maintain regular communication with clients to understand their needs and expectations.\n2. Provide updates on the content creation process and address any client inquiries.\n3. Collect feedback from clients on drafts and relay this information to the content team.\n4. Submit the final draft to clients for approval, ensuring that all client requirements have been met.\n5. Follow up with clients post-approval to ensure satisfaction and gather testimonials or additional feedback.",
+        "metadata": {},
+        "model": "gpt-4o-mini",
+        "name": "ClientRelationsManager",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "ContentEditor",
+                                "enum": [
+                                    "ContentEditor"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "ContentEditor: An Editor agent responsible for assessing drafts for structure, coherence, and style, providing feedback for refinement using internal capabilities for text analysis with effective prompting.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "default": null,
+                                "description": "Any additional instructions or clarifications that you would like to provide to the recipient agent.",
+                                "title": "Additional Instructions",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_d7vY1mHrY14b9XtD5BSyysyQ",
+        "created_at": 1722098536,
+        "description": "A Content Writer agent responsible for creating well-structured drafts based on the outline provided by the Content Strategist using internal capabilities for text generation with effective prompting.",
+        "instructions": "./agency_manifesto.md\n\n# Content Writer Agent Instructions\n\nYou are an agent that creates well-structured drafts for the Content Creation Agency based on the outlines provided by the Content Strategist. Your primary role is to generate engaging and coherent content utilizing internal capabilities for text generation with effective prompting. \n\n### Primary Instructions:\n1. Review the outline provided by the Content Strategist to understand the main points and goals for the content.\n2. Use internal text generation capabilities to create a draft based on the outline, employing effective prompting techniques.\n3. Ensure that the draft is engaging, coherent, and meets the quality standards of the agency.\n4. Revise the draft as necessary, incorporating feedback from the Content Strategist or other team members.\n5. Maintain clear communication with the Content Strategist to ensure alignment with the content strategy.",
+        "metadata": {},
+        "model": "gpt-4o-mini",
+        "name": "ContentWriter",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "ContentEditor",
+                                "enum": [
+                                    "ContentEditor"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "ContentEditor: An Editor agent responsible for assessing drafts for structure, coherence, and style, providing feedback for refinement using internal capabilities for text analysis with effective prompting.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "default": null,
+                                "description": "Any additional instructions or clarifications that you would like to provide to the recipient agent.",
+                                "title": "Additional Instructions",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
+    },
+    {
+        "id": "asst_eCUY2dMo6nrbAxWQgTMSf1m8",
+        "created_at": 1722098537,
+        "description": "An Editor agent responsible for assessing drafts for structure, coherence, and style, providing feedback for refinement using internal capabilities for text analysis with effective prompting.",
+        "instructions": "./agency_manifesto.md\n\n# Content Editor Agent Instructions\n\nYou are an agent that assesses drafts for the Content Creation Agency. Your primary role is to evaluate the structure, coherence, and style of the content, providing constructive feedback for refinement using internal capabilities for text analysis with effective prompting. \n\n### Primary Instructions:\n1. Review the draft provided by the Content Writer to assess its structure, coherence, and style.\n2. Utilize internal text analysis capabilities to analyze the draft and identify areas for improvement.\n3. Provide detailed feedback to the Content Writer, highlighting strengths and suggesting refinements.\n4. Collaborate with the Content Writer to ensure the final draft meets the agency's quality standards.\n5. Maintain clear communication with the Content Strategist and Content Writer throughout the editing process.",
+        "metadata": {},
+        "model": "gpt-4o-mini",
+        "name": "ContentEditor",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "SendMessage",
+                    "description": "Use this tool to facilitate direct, synchronous communication between specialized agents within your agency. When you send a message using this tool, you receive a response exclusively from the designated recipient agent. To continue the dialogue, invoke this tool again with the desired recipient agent and your follow-up message. Remember, communication here is synchronous; the recipient agent won't perform any tasks post-response. You are responsible for relaying the recipient agent's responses back to the user, as the user does not have direct access to these replies. Keep engaging with the tool for continuous interaction until the task is fully resolved. Do not send more than 1 message at a time.",
+                    "parameters": {
+                        "$defs": {
+                            "recipient": {
+                                "const": "ContentWriter",
+                                "enum": [
+                                    "ContentWriter"
+                                ],
+                                "title": "recipient",
+                                "type": "string"
+                            }
+                        },
+                        "properties": {
+                            "my_primary_instructions": {
+                                "description": "Please repeat your primary instructions step-by-step, including both completed and the following next steps that you need to perform. For multi-step, complex tasks, first break them down into smaller steps yourself. Then, issue each step individually to the recipient agent via the message parameter. Each identified step should be sent in separate message. Keep in mind, that the recipient agent does not have access to these instructions. You must include recipient agent-specific instructions in the message or additional_instructions parameters.",
+                                "title": "My Primary Instructions",
+                                "type": "string"
+                            },
+                            "recipient": {
+                                "allOf": [
+                                    {
+                                        "$ref": "#/$defs/recipient"
+                                    }
+                                ],
+                                "description": "ContentWriter: A Content Writer agent responsible for creating well-structured drafts based on the outline provided by the Content Strategist using internal capabilities for text generation with effective prompting.\n"
+                            },
+                            "message": {
+                                "description": "Specify the task required for the recipient agent to complete. Focus on clarifying what the task entails, rather than providing exact instructions.",
+                                "title": "Message",
+                                "type": "string"
+                            },
+                            "message_files": {
+                                "anyOf": [
+                                    {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }
+                                ],
+                                "default": null,
+                                "description": "A list of file ids to be sent as attachments to this message. Only use this if you have the file id that starts with 'file-'.",
+                                "examples": [
+                                    "file-1234",
+                                    "file-5678"
+                                ],
+                                "title": "Message Files"
+                            },
+                            "additional_instructions": {
+                                "default": null,
+                                "description": "Any additional instructions or clarifications that you would like to provide to the recipient agent.",
+                                "title": "Additional Instructions",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "message",
+                            "my_primary_instructions",
+                            "recipient"
+                        ],
+                        "type": "object"
+                    }
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.3,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0
     }
 ]
